@@ -57,17 +57,20 @@
                 </div>
             </section>
 
-            <!-- Section 1: Set / Update Allotted Budget -->
+            <!-- Section 1: Manage / Add Allotted Budget -->
             <section class="section-block">
                 <label for="inputBudget" class="section-title">
-                    Set <span id="periodLabel">Monthly</span> Budget
+                    Manage <span id="periodLabel">Monthly</span> Budget
                 </label>
                 <div class="input-row">
                     <div class="input-group">
                         <span class="currency-tag">PHP</span>
                         <input id="inputBudget" type="number" step="any" placeholder="0.00" autocomplete="off">
                     </div>
-                    <button id="btnSetBudget" type="button" class="btn-primary">Set Budget</button>
+                    <div class="budget-actions">
+                        <button id="btnAddBudget" type="button" class="btn-primary" title="Add this amount to your existing budget">+ Add Funds</button>
+                        <button id="btnSetBudget" type="button" class="btn-secondary" title="Set this amount as your new total budget">Set Exact</button>
+                    </div>
                 </div>
             </section>
 

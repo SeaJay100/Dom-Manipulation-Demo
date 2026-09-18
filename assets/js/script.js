@@ -26,6 +26,7 @@ const displayBalance = document.querySelector('#displayBalance');
 const balanceStatus = document.querySelector('#balanceStatus');
 
 const inputBudget = document.querySelector('#inputBudget');
+const btnAddBudget = document.querySelector('#btnAddBudget');
 const btnSetBudget = document.querySelector('#btnSetBudget');
 
 const inputSpendingAmount = document.querySelector('#inputSpendingAmount');
@@ -137,10 +138,7 @@ function renderUI() {
         displayBalance.className = 'metric-value balance negative';
     }
 
-    // 4. Update Budget Input with current budget value
-    inputBudget.value = currentPeriodData.budget > 0 ? currentPeriodData.budget : '';
-
-    // 5. Update Spendings Count & List
+    // 4. Update Spendings Count & List
     const items = currentPeriodData.spendings;
     spendingsCount.textContent = `${items.length} ${items.length === 1 ? 'item' : 'items'}`;
 
@@ -183,21 +181,43 @@ function escapeHTML(str) {
 function switchPeriod(period) {
     if (!appState.periods[period]) return;
     appState.activePeriod = period;
+    inputBudget.value = '';
     renderUI();
     saveToStorage();
 }
 
-// Action: Set / Update Allotted Budget
+// Action: Add Funds to Existing Allotted Budget (Preserves existing spendings)
+function handleAddBudget() {
+    const value = parseFloat(inputBudget.value);
+    if (isNaN(value) || value <= 0) {
+        alert('Please enter a valid positive amount to add to your budget.');
+        inputBudget.focus();
+        return;
+    }
+
+    const currentPeriod = appState.periods[appState.activePeriod];
+    currentPeriod.budget = (Number(currentPeriod.budget) || 0) + value;
+
+    inputBudget.value = '';
+    renderUI();
+    saveToStorage();
+    inputBudget.focus();
+}
+
+// Action: Set / Overwrite Allotted Budget Directly (Preserves existing spendings)
 function handleSetBudget() {
     const value = parseFloat(inputBudget.value);
     if (isNaN(value) || value < 0) {
         alert('Please enter a valid positive budget amount.');
+        inputBudget.focus();
         return;
     }
 
     appState.periods[appState.activePeriod].budget = value;
+    inputBudget.value = '';
     renderUI();
     saveToStorage();
+    inputBudget.focus();
 }
 
 // Action: Add Spending Deduction
@@ -257,11 +277,17 @@ tabButtons.forEach(btn => {
     });
 });
 
+btnAddBudget.addEventListener('click', handleAddBudget);
 btnSetBudget.addEventListener('click', handleSetBudget);
 inputBudget.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         e.preventDefault();
-        handleSetBudget();
+        // If current period already has a budget, Enter adds to it; otherwise sets it
+        if (appState.periods[appState.activePeriod].budget > 0) {
+            handleAddBudget();
+        } else {
+            handleSetBudget();
+        }
     }
 });
 

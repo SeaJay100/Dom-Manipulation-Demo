@@ -380,6 +380,35 @@ input[type=number] {
     transform: scale(0.98);
 }
 
+.budget-actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.95rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+}
+
+.btn-secondary:hover {
+    background: #1e1e24;
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+}
+
+.btn-secondary:active {
+    transform: scale(0.98);
+}
+
 .form-row {
     display: flex;
     gap: 0.5rem;
@@ -520,5 +549,14 @@ input[type=number] {
     }
     .form-row {
         flex-direction: column;
+    }
+    .input-row {
+        flex-direction: column;
+    }
+    .budget-actions {
+        width: 100%;
+    }
+    .budget-actions button {
+        flex: 1;
     }
 }
