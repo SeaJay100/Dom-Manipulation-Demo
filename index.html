@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Calculator</title>
+    <title>Budget & Expense Tracker</title>
     <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,46 +16,82 @@
 <body>
     <div class="app-container">
         <div class="card">
-            <div class="card-header">
-                <h2>Budget Calculator</h2>
-                <p>Track remaining funds against allocated expenses.</p>
-            </div>
+            <!-- Header with Title and Period Navigation -->
+            <header class="card-header">
+                <div class="header-top">
+                    <h2>Budget & Cashflow</h2>
+                    <button id="btnResetPeriod" type="button" class="btn-subtle" title="Reset current period">Reset Period</button>
+                </div>
+                <p>Allocate a budget and track real-time balance deductions.</p>
 
-            <form class="calc-form" onsubmit="return false;">
-                <div class="field">
-                    <label for="currBalance">Current Balance</label>
+                <!-- Timeframe Selector Tabs -->
+                <nav class="period-tabs" role="tablist" aria-label="Budget period">
+                    <button type="button" class="tab-btn active" data-period="month">Monthly</button>
+                    <button type="button" class="tab-btn" data-period="week">Weekly</button>
+                    <button type="button" class="tab-btn" data-period="day">Daily</button>
+                </nav>
+            </header>
+
+            <!-- Metrics Overview -->
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Allotted Budget</span>
+                    <span id="displayBudget" class="metric-value">₱0.00</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Total Spendings</span>
+                    <span id="displaySpent" class="metric-value negative">₱0.00</span>
+                </div>
+                <div class="metric-card highlight">
+                    <div class="metric-header">
+                        <span class="metric-label">Current Balance</span>
+                        <span id="balanceStatus" class="status-tag neutral">Zero</span>
+                    </div>
+                    <span id="displayBalance" class="metric-value balance">₱0.00</span>
+                </div>
+            </section>
+
+            <!-- Section 1: Set / Update Allotted Budget -->
+            <section class="section-block">
+                <label for="inputBudget" class="section-title">
+                    Set <span id="periodLabel">Monthly</span> Budget
+                </label>
+                <div class="input-row">
                     <div class="input-group">
                         <span class="currency-tag">PHP</span>
-                        <input id="currBalance" name="balance" type="number" step="any" placeholder="0.00" autocomplete="off" required>
+                        <input id="inputBudget" type="number" step="any" placeholder="0.00" autocomplete="off">
                     </div>
+                    <button id="btnSetBudget" type="button" class="btn-primary">Set Budget</button>
                 </div>
+            </section>
 
-                <div class="field">
-                    <label for="totalBudget">Total Budget</label>
-                    <div class="input-group">
-                        <span class="currency-tag">PHP</span>
-                        <input id="totalBudget" name="amount" type="number" step="any" placeholder="0.00" autocomplete="off" required>
+            <!-- Section 2: Deduct Spendings -->
+            <section class="section-block">
+                <span class="section-title">Record Spending</span>
+                <form id="spendingForm" class="spending-form" onsubmit="return false;">
+                    <div class="form-row">
+                        <div class="input-group amount-group">
+                            <span class="currency-tag">PHP</span>
+                            <input id="inputSpendingAmount" type="number" step="any" placeholder="0.00" autocomplete="off" required>
+                        </div>
+                        <input id="inputSpendingNote" type="text" class="input-text" placeholder="Description (e.g. Groceries)" autocomplete="off">
                     </div>
-                </div>
-
-                <div class="form-actions">
-                    <button id="btnCalculate" type="button" class="btn-primary">
-                        Calculate
+                    <button id="btnAddSpending" type="button" class="btn-action">
+                        Deduct Spending
                     </button>
-                    <button id="btnReset" type="button" class="btn-secondary" title="Clear inputs and stored balance">
-                        Reset
-                    </button>
-                </div>
-            </form>
+                </form>
+            </section>
 
-            <div id="resultContainer" class="result-box" style="display: none;">
-                <div class="result-header">
-                    <span class="result-title">Net Balance</span>
-                    <span id="resultBadge" class="status-tag"></span>
+            <!-- Section 3: Spendings Ledger / History -->
+            <section class="section-block history-section">
+                <div class="section-header">
+                    <span class="section-title">Recent Spendings</span>
+                    <span id="spendingsCount" class="history-count">0 items</span>
                 </div>
-                <div id="badgeTotal" class="result-amount">₱0.00</div>
-                <p id="resultDesc" class="result-note"></p>
-            </div>
+                <div id="spendingsList" class="spendings-list">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
         </div>
     </div>
 </body>
