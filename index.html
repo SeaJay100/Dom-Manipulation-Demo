@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Calculator</title>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Application Logic -->
+    <script src="assets/js/script.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Budget Calculator</h2>
+                <p>Track remaining funds against allocated expenses.</p>
+            </div>
+
+            <form class="calc-form" onsubmit="return false;">
+                <div class="field">
+                    <label for="currBalance">Current Balance</label>
+                    <div class="input-group">
+                        <span class="currency-tag">PHP</span>
+                        <input id="currBalance" name="balance" type="number" step="any" placeholder="0.00" autocomplete="off" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="totalBudget">Total Budget</label>
+                    <div class="input-group">
+                        <span class="currency-tag">PHP</span>
+                        <input id="totalBudget" name="amount" type="number" step="any" placeholder="0.00" autocomplete="off" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button id="btnCalculate" type="button" class="btn-primary">
+                        Calculate
+                    </button>
+                    <button id="btnReset" type="button" class="btn-secondary" title="Clear inputs and stored balance">
+                        Reset
+                    </button>
+                </div>
+            </form>
+
+            <div id="resultContainer" class="result-box" style="display: none;">
+                <div class="result-header">
+                    <span class="result-title">Net Balance</span>
+                    <span id="resultBadge" class="status-tag"></span>
+                </div>
+                <div id="badgeTotal" class="result-amount">₱0.00</div>
+                <p id="resultDesc" class="result-note"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
