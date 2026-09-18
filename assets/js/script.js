@@ -291,3 +291,16 @@ btnResetPeriod.addEventListener('click', handleResetPeriod);
 // Initialize application
 loadFromStorage();
 renderUI();
+
+// Register Service Worker for offline PWA support
+if ('serviceWorker' in navigator && (window.location.protocol.startsWith('http') || window.location.hostname === 'localhost')) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => {
+                console.log('Service Worker registered for offline use:', reg.scope);
+            })
+            .catch(err => {
+                console.log('Service Worker registration note:', err);
+            });
+    });
+}

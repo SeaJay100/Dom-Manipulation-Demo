@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+    <rect width="512" height="512" rx="112" fill="#121215" stroke="#232328" stroke-width="12"/>
+    <g transform="translate(106, 106)" stroke="#f4f4f5" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Vault / Wallet / Cashflow Minimalist Icon -->
+        <rect x="10" y="30" width="280" height="240" rx="36" fill="#18181d" stroke="#33333d"/>
+        <line x1="10" y1="100" x2="290" y2="100" stroke="#33333d"/>
+        <circle cx="210" cy="170" r="18" fill="#22c55e" stroke="#22c55e"/>
+        <!-- Chart balance line -->
+        <path d="M50 190 L95 150 L145 180 L200 130" stroke="#22c55e" stroke-width="20"/>
+    </g>
+</svg>
+
